@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-npm install tsl @react-analyzer/tsl
+pnpm add -D tsl @react-analyzer/tsl
 ```
 
 > [!NOTE]\
