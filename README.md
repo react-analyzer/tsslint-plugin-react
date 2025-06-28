@@ -32,13 +32,30 @@ export default defineConfig({
 
 ### Add the TypeScript plugin
 
-In your `tsconfig.json` add the following:
+In your `tsconfig.json` or `jsconfig.json` add the following:
 
-```json
+```diff
 {
   "compilerOptions": {
-    "plugins": [{ "name": "tsl/plugin" }]
+    "jsx": "react-jsx",
++    "plugins": [{ "name": "tsl/plugin" }]
   }
+}
+```
+
+### Add project-aware React configuration
+
+In your `tsconfig.json` or `jsconfig.json` add the following:
+
+```diff
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "plugins": [{ "name": "tsl/plugin" }],
+  },
++  "react": {
++    "version": "19.1.0" // or "detect" to automatically detect the version
++  }
 }
 ```
 
