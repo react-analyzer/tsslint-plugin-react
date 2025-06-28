@@ -1,8 +1,7 @@
 {
-  "name": "tsslint-plugin-react",
+  "name": "@react-analyzer/tsl",
   "version": "0.0.0",
   "description": "Bring the same linting functionality that https://eslint-react.xyz has to the TypeScript LSP.",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
