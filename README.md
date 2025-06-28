@@ -8,42 +8,22 @@
 pnpm add -D tsl @react-analyzer/tsl
 ```
 
-> [!NOTE]\
-> TS 5.8 is expected as a peer dependency.
+Then follow the [installation guide for tsl ↗](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation).
 
-### Add a configuration
+## Enabling rules
 
-Add a `tsl.config.ts` file to your project root. If you don't have one, all core rules are enabled (cli only, editor integration requires a config).
-
-You can either enable all core and react rules and disable some of them or update options if needed, or pick only the rules you want to enable.
-
-```ts
+```diff
 // tsl.config.ts
 import { core, defineConfig } from "tsl";
-import { rules as react } from "@react-analyzer/tsl";
++ import { rules as react } from "@react-analyzer/tsl";
 
 export default defineConfig({
   rules: [
     ...core.all(),
-    react.noLeakedConditionalRendering(),
++    react.noLeakedConditionalRendering(),
   ],
 });
 ```
-
-### Add the TypeScript plugin
-
-In your `tsconfig.json` or `jsconfig.json` add the following:
-
-```diff
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-+    "plugins": [{ "name": "tsl/plugin" }]
-  }
-}
-```
-
-[Full installation guide for tsl ↗](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation)
 
 ## Project-aware React configuration
 
@@ -52,7 +32,7 @@ In your `tsconfig.json` or `jsconfig.json` add the following:
 ```diff
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
++    "jsx": "react-jsx",
     "plugins": [{ "name": "tsl/plugin" }],
   },
 +  "react": {
