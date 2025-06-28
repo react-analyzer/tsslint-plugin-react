@@ -1,8 +1,9 @@
 import { ruleTester } from "tsl/ruleTester";
 import { noLeakedConditionalRendering, messages } from "./noLeakedConditionalRendering.ts";
+import { expect, test } from "vitest";
 
-export const test = () =>
-  ruleTester({
+test("noLeakedConditionalRendering", () => {
+  const ret = ruleTester({
     ruleFn: noLeakedConditionalRendering,
     valid: [
       // TODO: Add valid cases
@@ -11,3 +12,5 @@ export const test = () =>
       // TODO: Add invalid cases
     ],
   });
+  expect(ret).toEqual(false);
+});
