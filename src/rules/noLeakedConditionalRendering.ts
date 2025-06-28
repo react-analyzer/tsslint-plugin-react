@@ -2,7 +2,7 @@ import { compare } from "compare-versions";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import { defineRule, type AST, type ReportDescriptor } from "tsl";
-import ts from "typescript";
+import ts, { SyntaxKind } from "typescript";
 
 import { Context as CTX, Reporter as RPT } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
@@ -157,6 +157,8 @@ function inspectVariantTypes(types: ts.Type[]) {
 
 // #endregion
 
+// #region Rule Implementation
+
 // TODO: Port the rule from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.ts
 export const noLeakedConditionalRendering = defineRule(() => {
   return {
@@ -183,10 +185,27 @@ export const noLeakedConditionalRendering = defineRule(() => {
         node:
           | unit
           | AST.Expression
-          | AST.JsxExpression
-          | AST.JsxExpression["expression"],
+          | AST.JsxExpression,
       ): ReportDescriptor | unit {
-        // TODO: Implement the logic to generate a report descriptor
+        if (node == null) return unit;
+        switch (node.kind) {
+          case SyntaxKind.JsxExpression:
+          case SyntaxKind.AsExpression:
+          case SyntaxKind.TypeAssertionExpression:
+          case SyntaxKind.NonNullExpression:
+          case SyntaxKind.SatisfiesExpression:
+          case SyntaxKind.ExpressionWithTypeArguments: {
+            return getReportDescriptor(node.expression);
+          }
+          case SyntaxKind.BinaryExpression: {
+            if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return unit;
+            const isLeftUnaryNot = node.left.kind === SyntaxKind.PrefixUnaryExpression
+              && node.left.operator === SyntaxKind.ExclamationToken;
+            if (isLeftUnaryNot) return getReportDescriptor(node.right);
+            // TODO: Implement the rest of the logic
+          }
+            // TODO: Implement the rest of the logic
+        }
         return unit;
       }
 
@@ -205,3 +224,5 @@ export const noLeakedConditionalRendering = defineRule(() => {
     },
   };
 });
+
+// #endregion
