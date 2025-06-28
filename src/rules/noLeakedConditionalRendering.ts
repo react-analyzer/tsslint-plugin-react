@@ -1,10 +1,10 @@
 import { compare } from "compare-versions";
 import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
-import { defineRule, type AST, type Context, type ReportDescriptor } from "tsl";
+import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import ts from "typescript";
 
-import { Reporter as RPT } from "../kit/kit.ts";
+import { Context as CTX, Reporter as RPT } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
 export const RULE_NAME = "noLeakedConditionalRendering";
@@ -162,7 +162,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
   return {
     name: `@react-analyzer/${RULE_NAME}`,
     createData(context) {
-      const { version } = getSettingsFromContext(context);
+      const { version } = CTX.getSettingsFromContext(context);
       // Allowed left node type variants
       const allowedVariants = [
         "any",
@@ -205,7 +205,3 @@ export const noLeakedConditionalRendering = defineRule(() => {
     },
   };
 });
-
-function getSettingsFromContext(context: Omit<Context<unknown>, "data">): { version: string } {
-  throw new Error("Function not implemented.");
-}
