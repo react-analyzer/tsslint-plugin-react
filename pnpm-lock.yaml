@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      compare-versions:
+        specifier: ^6.1.1
+        version: 6.1.1
+      ts-api-utils:
+        specifier: ^2.1.0
+        version: 2.1.0(typescript@5.8.3)
+      ts-pattern:
+        specifier: ^5.7.1
+        version: 5.7.1
       tsl:
         specifier: ^1.0.17
         version: 1.0.17(typescript@5.8.3)
@@ -478,6 +487,9 @@ packages:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
 
+  compare-versions@6.1.1:
+    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
+
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
@@ -813,6 +825,9 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  ts-pattern@5.7.1:
+    resolution: {integrity: sha512-EGs8PguQqAAUIcQfK4E9xdXxB6s2GK4sJfT/vcc9V1ELIvC4LH/zXu2t/5fajtv6oiRCxdv7BgtVK3vWgROxag==}
 
   tsl@1.0.17:
     resolution: {integrity: sha512-Ue7pMZFnvZlAbfJMevCrHO0qB/wrrWcaEQ1OZpaQ+fQ+BQQMjSLJj8vKPBWe/Hw2772v2xhS524a3SUPAa5+cg==}
@@ -1249,6 +1264,8 @@ snapshots:
 
   commander@4.1.1: {}
 
+  compare-versions@6.1.1: {}
+
   confbox@0.1.8: {}
 
   consola@3.4.2: {}
@@ -1582,6 +1599,8 @@ snapshots:
       typescript: 5.8.3
 
   ts-interface-checker@0.1.13: {}
+
+  ts-pattern@5.7.1: {}
 
   tsl@1.0.17(typescript@5.8.3):
     dependencies:
