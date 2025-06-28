@@ -1,11 +1,11 @@
-import { defineRule, type AST, type Context, type ReportDescriptor } from "tsl";
 import { compare } from "compare-versions";
-import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet, unionTypeParts } from "ts-api-utils";
+import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
+import { defineRule, type AST, type Context, type ReportDescriptor } from "tsl";
 import ts from "typescript";
 
-import { unit } from "../lib/eff.ts";
 import { Reporter as RPT } from "../kit/kit.ts";
+import { unit } from "../lib/eff.ts";
 
 export const RULE_NAME = "noLeakedConditionalRendering";
 

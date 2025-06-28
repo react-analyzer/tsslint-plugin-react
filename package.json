@@ -30,6 +30,7 @@
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsc --noEmit",
+    "format:write": "dprint fmt",
     "publish": "pnpm run build && pnpm run lint:publish",
     "test": "vitest run"
   },

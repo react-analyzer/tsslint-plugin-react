@@ -1,0 +1,24 @@
+{
+  "[json]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint"
+  },
+  "editor.codeActionsOnSave": {
+    "source.formatting": "explicit",
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "never",
+    "source.organizeImports": "explicit"
+  },
+  "files.exclude": {
+    "**/.zed": true,
+    "*.bundled_*.mjs": true
+  },
+  "npm.packageManager": "pnpm",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

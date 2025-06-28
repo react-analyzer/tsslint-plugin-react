@@ -1,6 +1,6 @@
 import { ruleTester } from "tsl/ruleTester";
-import { noLeakedConditionalRendering, messages } from "./noLeakedConditionalRendering.ts";
 import { expect, test } from "vitest";
+import { noLeakedConditionalRendering } from "./noLeakedConditionalRendering.ts";
 
 test("noLeakedConditionalRendering", () => {
   const ret = ruleTester({
