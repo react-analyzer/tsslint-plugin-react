@@ -43,7 +43,9 @@ In your `tsconfig.json` or `jsconfig.json` add the following:
 }
 ```
 
-### Add project-aware React configuration
+[Full installation guide for tsl ↗](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation)
+
+## Project-aware React configuration
 
 In your `tsconfig.json` or `jsconfig.json` add the following:
 
@@ -55,11 +57,10 @@ In your `tsconfig.json` or `jsconfig.json` add the following:
   },
 +  "react": {
 +    "version": "19.1.0" // or "detect" to automatically detect the version
++    // other options can be added here
 +  }
 }
 ```
-
-[Full Installation Guide ↗](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation)
 
 ## Thanks
 
