@@ -2,10 +2,50 @@
   "name": "@react-analyzer/tsl",
   "version": "0.0.0",
   "description": "Bring the same linting functionality that https://eslint-react.xyz has to the TypeScript LSP.",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/react-analyzer/tsl",
+  "bugs": {
+    "url": "https://github.com/react-analyzer/tsl/issues"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-analyzer/tsl.git"
+  },
+  "license": "MIT",
+  "author": "Rel1cx<dokimondex@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:docs": "typedoc",
+    "lint:publish": "publint",
+    "lint:ts": "tsc --noEmit",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.6",
+    "@tsconfig/strictest": "^2.0.5",
+    "dprint": "^0.50.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "tsl": "^1.0.17",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "bun": ">=1.2.17",
+    "node": ">=20.19.0"
+  }
 }
