@@ -15,8 +15,6 @@ docs/internals/
 # Test
 coverage/
 
-.eslintcache
-
 # misc
 .DS_Store
 *.pem
@@ -41,10 +39,8 @@ yarn-error.log*
 
 stats.html
 *.config-*.mjs
-/eslint-config.json
 *.bundled_*.mjs
 *.tgz
-eslint-results.sarif
 .tsup
 
 .nx/cache
