@@ -2,7 +2,7 @@
 
 (WIP) Bring the same linting functionality that [`eslint-react.xyz`](https://eslint-react.xyz) has to the TypeScript LSP.
 
-This package provides the ruleset from [`beta.eslint-react.xyz/docs/rules/overview`](https://beta.eslint-react.xyz/docs/rules/overview) as custom rules for the [ArnaudBarre/tsl](https://github.com/ArnaudBarre/tsl) linting tool.
+This package provides the rulesets from [`beta.eslint-react.xyz/docs/rules/overview`](https://beta.eslint-react.xyz/docs/rules/overview) as custom rules for the [ArnaudBarre/tsl](https://github.com/ArnaudBarre/tsl) linting tool.
 
 ## Installation
 
