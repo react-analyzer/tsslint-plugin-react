@@ -7,6 +7,7 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleDetection": "force",
+    "types": ["tsl/patches"],
     "skipLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -18,7 +19,8 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": true,
-    "noPropertyAccessFromIndexSignature": true
+    "noPropertyAccessFromIndexSignature": true,
+    "plugins": [{ "name": "tsl/plugin" }]
   },
   "exclude": [
     "node_modules",

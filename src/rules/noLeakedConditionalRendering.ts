@@ -40,8 +40,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
       function getReportDescriptor(
         node:
           | unit
-          | AST.Expression
-          | AST.JsxExpression,
+          | AST.Expression,
       ): ReportDescriptor | unit {
         if (node == null) return unit;
         switch (node.kind) {
@@ -55,9 +54,9 @@ export const noLeakedConditionalRendering = defineRule(() => {
           }
           case SyntaxKind.BinaryExpression: {
             if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return unit;
-            // const isLeftUnaryNot = node.left.kind === SyntaxKind.PrefixUnaryExpression && node.left.operator === SyntaxKind.ExclamationToken;
             if (Syntax.isLogicalNegationExpression(node.left)) return getReportDescriptor(node.right);
             // TODO: Implement the rest of the logic
+            return unit;
           }
             // TODO: Implement the rest of the logic
         }
