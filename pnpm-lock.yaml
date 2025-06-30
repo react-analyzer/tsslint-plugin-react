@@ -21,8 +21,8 @@ importers:
         specifier: ^5.7.1
         version: 5.7.1
       tsl:
-        specifier: ^1.0.17
-        version: 1.0.17(typescript@5.8.3)
+        specifier: ^1.0.18
+        version: 1.0.18(typescript@5.8.3)
     devDependencies:
       '@tsconfig/node20':
         specifier: ^20.1.6
@@ -829,8 +829,8 @@ packages:
   ts-pattern@5.7.1:
     resolution: {integrity: sha512-EGs8PguQqAAUIcQfK4E9xdXxB6s2GK4sJfT/vcc9V1ELIvC4LH/zXu2t/5fajtv6oiRCxdv7BgtVK3vWgROxag==}
 
-  tsl@1.0.17:
-    resolution: {integrity: sha512-Ue7pMZFnvZlAbfJMevCrHO0qB/wrrWcaEQ1OZpaQ+fQ+BQQMjSLJj8vKPBWe/Hw2772v2xhS524a3SUPAa5+cg==}
+  tsl@1.0.18:
+    resolution: {integrity: sha512-Lx74mEVv/aNS5PKnVjT/mEt8imBiLQxW/7qvkUN1fwVGKSleolPxGe6debG3HMkN8kMNtpp//VE6yRCcWeUdOg==}
     hasBin: true
     peerDependencies:
       typescript: ~5.8.3
@@ -1607,7 +1607,7 @@ snapshots:
 
   ts-pattern@5.7.1: {}
 
-  tsl@1.0.17(typescript@5.8.3):
+  tsl@1.0.18(typescript@5.8.3):
     dependencies:
       esbuild: 0.25.5
       ts-api-utils: 2.1.0(typescript@5.8.3)

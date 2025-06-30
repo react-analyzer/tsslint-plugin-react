@@ -2,7 +2,7 @@ import { compare } from "compare-versions";
 import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import { SyntaxKind } from "typescript";
 
-import { Checker as CHK, Context as CTX, Reporter as RPT } from "../kit/kit.ts";
+import { Checker as CHK, Context as CTX, Reporter as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
 export const RULE_NAME = "noLeakedConditionalRendering";
@@ -55,9 +55,8 @@ export const noLeakedConditionalRendering = defineRule(() => {
           }
           case SyntaxKind.BinaryExpression: {
             if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return unit;
-            const isLeftUnaryNot = node.left.kind === SyntaxKind.PrefixUnaryExpression
-              && node.left.operator === SyntaxKind.ExclamationToken;
-            if (isLeftUnaryNot) return getReportDescriptor(node.right);
+            // const isLeftUnaryNot = node.left.kind === SyntaxKind.PrefixUnaryExpression && node.left.operator === SyntaxKind.ExclamationToken;
+            if (Syntax.isLogicalNegationExpression(node.left)) return getReportDescriptor(node.right);
             // TODO: Implement the rest of the logic
           }
             // TODO: Implement the rest of the logic
