@@ -10,7 +10,7 @@ This package provides the ruleset from [`beta.eslint-react.xyz/docs/rules/overvi
 pnpm add -D tsl @react-analyzer/tsl
 ```
 
-Then follow the [installation guide for tsl ↗](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation).
+Then follow the [installation guide](https://github.com/ArnaudBarre/tsl?tab=readme-ov-file#installation) for tsl.
 
 ## Enabling rules
 
