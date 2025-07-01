@@ -2,8 +2,9 @@ import { compare } from "compare-versions";
 import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import { SyntaxKind } from "typescript";
 
-import { Check as CHK, Context as CTX, Report as RPT, Syntax } from "../kit/kit.ts";
+import { Check as CHK, Report as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
+import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
 
 export const RULE_NAME = "noLeakedConditionalRendering";
 
@@ -19,7 +20,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
   return {
     name: `@react-analyzer/${RULE_NAME}`,
     createData(context) {
-      const { version } = CTX.getReactAnalyzerOptions(context);
+      const { version } = getAnalyzerOptions(context);
 
       // Allowed left node type variants
       const allowedVariants = [
