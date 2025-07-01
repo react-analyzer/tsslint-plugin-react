@@ -4,7 +4,7 @@ import { isMatching, match, P } from "ts-pattern";
 import { core, defineConfig, defineRule } from "tsl";
 import { SyntaxKind } from "typescript";
 
-const isNullish = P.union(
+const isNullOrUndefine = P.union(
   SyntaxKind.NullKeyword,
   SyntaxKind.UndefinedKeyword,
 );
@@ -13,6 +13,36 @@ const isEqEqEqOrExEqEq = P.union(
   SyntaxKind.EqualsEqualsEqualsToken,
   SyntaxKind.ExclamationEqualsEqualsToken,
 );
+
+const preferEqEqNullishComparison = defineRule(() => ({
+  name: "local/preferEqEqNullishComparison",
+  visitor: {
+    BinaryExpression(context, node) {
+      if (!isMatching(isEqEqEqOrExEqEq, node.operatorToken.kind)) return;
+      if (!isMatching(isNullOrUndefine, node.left.kind) && !isMatching(isNullOrUndefine, node.right.kind)) return;
+      const newOperatorText = match(node.operatorToken.kind)
+        .with(SyntaxKind.EqualsEqualsEqualsToken, () => "==")
+        .with(SyntaxKind.ExclamationEqualsEqualsToken, () => "!=")
+        .otherwise<never>(hole);
+      context.report({
+        message: "Use '==' or '!=' for nullish comparison.",
+        node,
+        suggestions: [
+          {
+            message: `Replace with '${newOperatorText}'`,
+            changes: [
+              {
+                start: node.operatorToken.getStart(),
+                end: node.operatorToken.getEnd(),
+                newText: newOperatorText,
+              },
+            ],
+          },
+        ],
+      });
+    },
+  },
+}));
 
 export default defineConfig({
   rules: [
@@ -31,34 +61,6 @@ export default defineConfig({
       considerDefaultExhaustiveForUnions: true,
     }),
     core.noConfusingVoidExpression("off"),
-    {
-      name: "local/preferEqEqNullishComparison",
-      visitor: {
-        BinaryExpression(context, node) {
-          if (!isMatching(isEqEqEqOrExEqEq, node.operatorToken.kind)) return;
-          if (!isMatching(isNullish, node.left.kind) && !isMatching(isNullish, node.right.kind)) return;
-          const newOperatorText = match(node.operatorToken.kind)
-            .with(SyntaxKind.EqualsEqualsEqualsToken, () => "==")
-            .with(SyntaxKind.ExclamationEqualsEqualsToken, () => "!=")
-            .otherwise<never>(hole);
-          context.report({
-            message: "Use '==' or '!=' for nullish comparison.",
-            node,
-            suggestions: [
-              {
-                message: `Replace with '${newOperatorText}'`,
-                changes: [
-                  {
-                    start: node.operatorToken.getStart(),
-                    end: node.operatorToken.getEnd(),
-                    newText: newOperatorText,
-                  },
-                ],
-              },
-            ],
-          });
-        },
-      },
-    },
+    preferEqEqNullishComparison(),
   ],
 });

@@ -5,8 +5,8 @@ node_modules/
 # Build
 dist/
 out/
-build
-docs/internals/
+build/
+docs/
 
 # Editor
 .vim/

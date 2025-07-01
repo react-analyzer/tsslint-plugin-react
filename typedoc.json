@@ -1,0 +1,33 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "cleanOutputDir": true,
+  "disableSources": true,
+  "entryPoints": [
+    "src/index.ts",
+    "src/helper.ts",
+    "src/lib/eff.ts",
+    "src/kit/kit.ts",
+    "src/analyzer/analyzer.ts",
+    "src/rules/noLeakedConditionalRendering.ts"
+  ],
+  "excludeInternal": true,
+  "hideGenerator": true,
+  "jsDocCompatibility": true,
+  "logLevel": "Warn",
+  "name": "@react-analyzer/tsl",
+  "out": "docs",
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-mdn-links"
+  ],
+  "readme": "none",
+  "sort": [
+    "kind",
+    "instance-first",
+    "alphabetical"
+  ],
+  "theme": "default",
+  "useTsLinkResolution": true,
+  "validation": true,
+  "commentStyle": "all"
+}

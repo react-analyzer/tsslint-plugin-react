@@ -6,14 +6,14 @@ import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
 import { Check as CHK, Report as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
+/** @internal */
 export const RULE_NAME = "noLeakedConditionalRendering";
 
+/** @internal */
 export const messages = {
   noLeakedConditionalRendering: (p: { value: string }) =>
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
 } as const;
-
-// #region Rule Implementation
 
 // TODO: Port the rule from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.ts
 export const noLeakedConditionalRendering = defineRule(() => {
@@ -79,5 +79,3 @@ export const noLeakedConditionalRendering = defineRule(() => {
     },
   };
 });
-
-// #endregion

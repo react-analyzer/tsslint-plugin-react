@@ -1,23 +1,17 @@
 import type { Context, ReportDescriptor } from "tsl";
-import { dual, type unit } from "../lib/eff.ts";
-
-export interface Reporter<Ctx extends Context = Context> {
-  send: (descriptor: unit | ReportDescriptor) => void;
-  sendOrElse: <TElse>(descriptor: unit | ReportDescriptor, cb: () => TElse) => unit | TElse;
-}
+import { dual, unit } from "../lib/eff.ts";
 
 export const send: {
-  <TCtx extends Context = Context>(context: TCtx, descriptor: unit | ReportDescriptor): void;
-  <TCtx extends Context = Context>(context: TCtx): (descriptor: unit | ReportDescriptor) => void;
-} = dual(2, <TCtx extends Context = Context>(context: TCtx, descriptor: unit | ReportDescriptor) => {
+  (context: Context, descriptor: unit | ReportDescriptor): void;
+  (context: Context): (descriptor: unit | ReportDescriptor) => void;
+} = dual(2, (context: Context, descriptor?: ReportDescriptor) => {
   if (descriptor == null) return;
   return context.report(descriptor);
 });
 
 export const sendOrElse: {
-  <TCtx extends Context, TElse>(context: Context, descriptor: unit | ReportDescriptor, cb: () => TElse): unit | TElse;
-  // dprint-ignore
-  <TCtx extends Context, TElse>(context: Context): (descriptor: unit | ReportDescriptor) => (cb: () => TElse) => unit | TElse;
+  <TElse>(context: Context, descriptor: unit | ReportDescriptor, cb: () => TElse): unit | TElse;
+  <TElse>(context: Context): (descriptor: unit | ReportDescriptor) => (cb: () => TElse) => unit | TElse;
 } = dual(
   3,
   (
@@ -30,7 +24,12 @@ export const sendOrElse: {
       : context.report(descriptor),
 );
 
-export function make<TCtx extends Context = Context>(context: Context): Reporter<TCtx> {
+export interface Report {
+  send: (descriptor: unit | ReportDescriptor) => void;
+  sendOrElse: <TElse>(descriptor: unit | ReportDescriptor, cb: () => TElse) => unit | TElse;
+}
+
+export function make(context: Context): Report {
   return {
     send: (...args) => send(context, ...args),
     sendOrElse: (...args) => sendOrElse(context, ...args),
