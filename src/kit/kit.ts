@@ -1,4 +1,4 @@
-export * as Checker from "./checker.ts";
+export * as Check from "./check.ts";
 export * as Context from "./context.ts";
-export * as Reporter from "./reporter.ts";
+export * as Report from "./report.ts";
 export * as Syntax from "./syntax.ts";

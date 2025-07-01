@@ -1,4 +1,4 @@
-import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet } from "ts-api-utils";
+import { isFalseLiteralType, isTypeFlagSet } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
 
@@ -72,24 +72,19 @@ export function getVariantsOfType(types: ts.Type[]) {
     variants.add("nullish");
   }
   const booleans = types.filter(isBooleanType);
+  const boolean0 = booleans[0];
   // If incoming type is either "true" or "false", there will be one type
   // object with intrinsicName set accordingly
   // If incoming type is boolean, there will be two type objects with
   // intrinsicName set "true" and "false" each because of ts-api-utils.unionTypeParts()
-  switch (true) {
-    case booleans.length === 1 && booleans[0] != null: {
-      const first = booleans[0];
-      if (isTrueLiteralType(first)) {
-        variants.add("truthy boolean");
-      } else if (isFalseLiteralType(first)) {
-        variants.add("falsy boolean");
-      }
-      break;
+  if (booleans.length === 1 && boolean0 != null) {
+    if (isFalseLiteralType(boolean0)) {
+      variants.add("falsy boolean");
+    } else if (isFalseLiteralType(boolean0)) {
+      variants.add("truthy boolean");
     }
-    case booleans.length === 2: {
-      variants.add("boolean");
-      break;
-    }
+  } else if (booleans.length === 2) {
+    variants.add("boolean");
   }
   const strings = types.filter(isStringType);
   if (strings.length > 0) {

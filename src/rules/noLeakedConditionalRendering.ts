@@ -2,7 +2,7 @@ import { compare } from "compare-versions";
 import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import { SyntaxKind } from "typescript";
 
-import { Checker as CHK, Context as CTX, Reporter as RPT, Syntax } from "../kit/kit.ts";
+import { Check as CHK, Context as CTX, Report as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
 export const RULE_NAME = "noLeakedConditionalRendering";
