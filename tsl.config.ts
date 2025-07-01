@@ -1,5 +1,18 @@
 // tsl.config.ts
-import { core, defineConfig } from "tsl";
+import { hole } from "effect/Function";
+import { isMatching, match, P } from "ts-pattern";
+import { core, defineConfig, defineRule } from "tsl";
+import { SyntaxKind } from "typescript";
+
+const isNullish = P.union(
+  SyntaxKind.NullKeyword,
+  SyntaxKind.UndefinedKeyword,
+);
+
+const isEqEqEqOrExEqEq = P.union(
+  SyntaxKind.EqualsEqualsEqualsToken,
+  SyntaxKind.ExclamationEqualsEqualsToken,
+);
 
 export default defineConfig({
   rules: [
@@ -18,5 +31,34 @@ export default defineConfig({
       considerDefaultExhaustiveForUnions: true,
     }),
     core.noConfusingVoidExpression("off"),
+    {
+      name: "local/preferEqEqNullishComparison",
+      visitor: {
+        BinaryExpression(context, node) {
+          if (!isMatching(isEqEqEqOrExEqEq, node.operatorToken.kind)) return;
+          if (!isMatching(isNullish, node.left.kind) && !isMatching(isNullish, node.right.kind)) return;
+          const newOperatorText = match(node.operatorToken.kind)
+            .with(SyntaxKind.EqualsEqualsEqualsToken, () => "==")
+            .with(SyntaxKind.ExclamationEqualsEqualsToken, () => "!=")
+            .otherwise<never>(hole);
+          context.report({
+            message: "Use '==' or '!=' for nullish comparison.",
+            node,
+            suggestions: [
+              {
+                message: `Replace with '${newOperatorText}'`,
+                changes: [
+                  {
+                    start: node.operatorToken.getStart(),
+                    end: node.operatorToken.getEnd(),
+                    newText: newOperatorText,
+                  },
+                ],
+              },
+            ],
+          });
+        },
+      },
+    },
   ],
 });

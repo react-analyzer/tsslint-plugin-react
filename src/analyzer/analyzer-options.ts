@@ -9,7 +9,7 @@ export interface AnalyzerOptions {
   version: string;
 }
 
-export const defaultAnalyzerOptions = {
+export const DEFAULT_ANALYZER_OPTIONS = {
   version: "19.1.0",
 } as const satisfies AnalyzerOptions;
 
@@ -19,7 +19,7 @@ export function getAnalyzerOptions(context: Omit<Context, "data">): AnalyzerOpti
   // TODO: Improve the type handling here
   const options = getTsconfig(project)?.config["react" as never] as unknown;
   return {
-    ...defaultAnalyzerOptions,
+    ...DEFAULT_ANALYZER_OPTIONS,
     ...match(options)
       .with({ version: P.string }, identity)
       .otherwise(() => ({})),

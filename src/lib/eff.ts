@@ -149,8 +149,6 @@ export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null |
  * assert.deepStrictEqual(isFunction(isFunction), true)
  * assert.deepStrictEqual(isFunction("function"), false)
  * ```
- *
- * @since 1.0.0
  */
 export const isFunction = (input: unknown): input is Function => typeof input === "function";
 
@@ -165,6 +163,34 @@ export const isFunction = (input: unknown): input is Function => typeof input ==
 export function identity<T>(x: T): T {
   return x;
 }
+
+/**
+ * Casts the result to the specified type.
+ *
+ * @example
+ * ```ts
+ * import * as assert from "node:assert"
+ * import { unsafeCoerce, identity } from "effect/Function"
+ *
+ * assert.deepStrictEqual(unsafeCoerce, identity)
+ * ```
+ */
+export const unsafeCoerce: <A, B>(a: A) => B = identity as any;
+
+/**
+ * The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
+ * meaning that it should be impossible for this code to be executed.
+ *
+ * This function is particularly useful when it's necessary to specify that certain cases are impossible.
+ */
+export const absurd = <A>(_: never): A => {
+  throw new Error("Called `absurd` function which should be uncallable");
+};
+
+/**
+ * Type hole simulation.
+ */
+export const hole: <T>() => T = unsafeCoerce(absurd);
 
 // Ported from https://github.com/Effect-TS/effect-smol/blob/main/src/Function.ts
 /**
@@ -231,7 +257,6 @@ export function identity<T>(x: T): T {
  *
  * @param arity - The arity of the uncurried function or a predicate that determines if the function is being used in a data-first or data-last style.
  * @param body - The function to be curried.
- * @since 1.0.0
  */
 export const dual: {
   <DataLast extends (...args: Array<any>) => any, DataFirst extends (...args: Array<any>) => any>(
@@ -302,8 +327,6 @@ export const dual: {
  *
  * assert.deepStrictEqual(pipe(length, apply("hello")), 5)
  * ```
- *
- * @since 1.0.0
  */
 export const apply = <A>(a: A) => <B>(self: (a: A) => B): B => self(a);
 
@@ -354,8 +377,6 @@ export function constFalse() {
  *
  * assert.deepStrictEqual(flip(f)('aaa')(2), -1)
  * ```
- *
- * @since 1.0.0
  */
 export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(
   f: (...a: A) => (...b: B) => C,
@@ -377,26 +398,11 @@ export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(
  *
  * assert.strictEqual(compose(increment, square)(2), 9);
  * ```
- *
- * @since 1.0.0
  */
 export const compose: {
   <B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
   <A, B, C>(self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
 } = dual(2, <A, B, C>(ab: (a: A) => B, bc: (b: B) => C): (a: A) => C => (a) => bc(ab(a)));
-
-/**
- * The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
- * meaning that it should be impossible for this code to be executed.
- *
- * This function is particularly useful when it's necessary to specify that certain cases are impossible.
- *
- * @param _ - The value of type `never` that is passed to the function.
- * @since 1.0.0
- */
-export const absurd = <A>(_: never): A => {
-  throw new Error("Called `absurd` function which should be uncallable");
-};
 
 /**
  * Creates a   version of this function: instead of `n` arguments, it accepts a single tuple argument.
@@ -411,8 +417,6 @@ export const absurd = <A>(_: never): A => {
  *
  * assert.deepStrictEqual(sumTupled([1, 2]), 3)
  * ```
- *
- * @since 1.0.0
  */
 export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): (a: A) => B => (a) => f(...a);
 
@@ -429,15 +433,12 @@ export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): 
  *
  * assert.deepStrictEqual(getFirst(1, 2), 1)
  * ```
- *
- * @since 1.0.0
  */
 export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (...a: A) => B => (...a) => f(a);
 
 /**
  * @param self - The value to pipe.
  * @param args - The functions to apply.
- * @since 1.0.0
  */
 export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
   switch (args.length) {
@@ -539,7 +540,6 @@ export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
  *
  * @param a - The value to pipe.
  * @param args
- * @since 1.0.0
  */
 export function pipe<A>(a: A): A;
 export function pipe<A, B = never>(a: A, ab: (a: A) => B): B;
@@ -1019,8 +1019,6 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  *
  * assert.strictEqual(f('aaa'), 6)
  * ```
- *
- * @since 1.0.0
  */
 export function flow<A extends ReadonlyArray<unknown>, B = never>(
   ab: (...a: A) => B,
