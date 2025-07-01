@@ -19,7 +19,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
   return {
     name: `@react-analyzer/${RULE_NAME}`,
     createData(context) {
-      const { version } = CTX.getSettingsFromContext(context);
+      const { version } = CTX.getReactAnalyzerOptions(context);
 
       // Allowed left node type variants
       const allowedVariants = [

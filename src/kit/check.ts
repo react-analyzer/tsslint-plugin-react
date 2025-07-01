@@ -1,4 +1,4 @@
-import { isFalseLiteralType, isTypeFlagSet } from "ts-api-utils";
+import { isFalseLiteralType, isTrueLiteralType, isTypeFlagSet } from "ts-api-utils";
 import { isMatching, match, P } from "ts-pattern";
 import ts from "typescript";
 
@@ -80,7 +80,7 @@ export function getVariantsOfType(types: ts.Type[]) {
   if (booleans.length === 1 && boolean0 != null) {
     if (isFalseLiteralType(boolean0)) {
       variants.add("falsy boolean");
-    } else if (isFalseLiteralType(boolean0)) {
+    } else if (isTrueLiteralType(boolean0)) {
       variants.add("truthy boolean");
     }
   } else if (booleans.length === 2) {

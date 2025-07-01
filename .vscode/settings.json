@@ -12,7 +12,7 @@
     "source.formatting": "explicit",
     "source.fixAll": "never",
     "source.fixAll.eslint": "never",
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "never"
   },
   "files.exclude": {
     "**/.zed": true,

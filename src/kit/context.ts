@@ -2,7 +2,11 @@ import { getTsconfig } from "get-tsconfig";
 import { parseArgs } from "node:util";
 import type { Context } from "tsl";
 
-export function getSettingsFromContext(context: Omit<Context<unknown>, "data">) {
+export interface ReactAnalyzerOptions {
+  version: string;
+}
+
+export function getReactAnalyzerOptions(context: Omit<Context, "data">): ReactAnalyzerOptions {
   const { values } = parseArgs({
     options: { project: { type: "string", short: "p" } },
   });
