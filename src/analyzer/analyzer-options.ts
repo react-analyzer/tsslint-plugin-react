@@ -13,7 +13,7 @@ export const defaultAnalyzerOptions = {
   version: "19.1.0",
 } as const satisfies AnalyzerOptions;
 
-// TODO: Implement the 'detect' for version option
+// TODO: Port the rest of the options from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/shared/src/settings.ts
 export function getAnalyzerOptions(context: Omit<Context, "data">): AnalyzerOptions {
   const { project = "tsconfig.json" } = getCommandLineOptions();
   // TODO: Improve the type handling here
