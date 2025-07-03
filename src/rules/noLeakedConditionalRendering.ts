@@ -40,8 +40,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
       function getReportDescriptor(node: AST.BinaryExpression): ReportDescriptor | unit {
         if (Syntax.isLogicalNegationExpression(node.left)) return unit;
         const leftType = context.utils.getConstrainedTypeAtLocation(node.left);
-        const leftTypeParts = context.utils.unionConstituents(leftType);
-        const leftTypeVariants = CHK.getVariantsOfUnionConstituents(leftTypeParts);
+        const leftTypeVariants = CHK.getVariantsOfTypes(context.utils.unionConstituents(leftType));
         const isLeftTypeValid = Array
           .from(leftTypeVariants.values())
           .every((type) => allowedVariants.some((allowed) => allowed === type));

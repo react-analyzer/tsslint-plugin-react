@@ -58,11 +58,11 @@ export type Variant =
 
 /**
  * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826 with some enhancements
- * Check union variants for the types we care about
- * @param types The union constituents to check
- * @returns The variants of the union constituents
+ * Get the variants of an array of types.
+ * @param types The types to get the variants of
+ * @returns The variants of the types
  */
-export function getVariantsOfUnionConstituents(types: ts.Type[]) {
+export function getVariantsOfTypes(types: ts.Type[]) {
   const variants = new Set<Variant>();
   if (types.some(isUnknownType)) {
     variants.add("unknown");
