@@ -1,16 +1,15 @@
 {
   "extends": [
     "@tsconfig/strictest/tsconfig.json",
-    "@tsconfig/node20/tsconfig.json"
+    "@tsconfig/bun/tsconfig.json"
   ],
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
     "moduleDetection": "force",
     "types": [
-      "tsl/patches",
-      "@types/bun",
-      "@types/node"
+      "bun",
+      "tsl/patches"
     ],
     "skipLibCheck": true,
     "moduleResolution": "bundler",

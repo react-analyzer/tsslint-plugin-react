@@ -42,7 +42,7 @@
     "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "bun run build && bun run lint:publish",
-    "test": "vitest run"
+    "test": "bun test"
   },
   "dependencies": {
     "compare-versions": "^6.1.1",
@@ -51,10 +51,9 @@
     "ts-pattern": "^5.7.1"
   },
   "devDependencies": {
-    "@tsconfig/node20": "^20.1.6",
+    "@tsconfig/bun": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
     "@types/bun": "^1.2.17",
-    "@types/node": "24.0.10",
     "dedent": "^1.6.0",
     "dprint": "^0.50.1",
     "publint": "^0.3.12",

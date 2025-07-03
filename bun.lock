@@ -10,10 +10,9 @@
         "ts-pattern": "^5.7.1",
       },
       "devDependencies": {
-        "@tsconfig/node20": "^20.1.6",
+        "@tsconfig/bun": "^1.0.8",
         "@tsconfig/strictest": "^2.0.5",
         "@types/bun": "^1.2.17",
-        "@types/node": "24.0.10",
         "dedent": "^1.6.0",
         "dprint": "^0.50.1",
         "publint": "^0.3.12",
@@ -221,7 +220,7 @@
 
     "@shikijs/vscode-textmate": ["@shikijs/vscode-textmate@10.0.2", "", {}, "sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg=="],
 
-    "@tsconfig/node20": ["@tsconfig/node20@20.1.6", "", {}, "sha512-sz+Hqx9zwZDpZIV871WSbUzSqNIsXzghZydypnfgzPKLltVJfkINfUeTct31n/tTSa9ZE1ZOfKdRre1uHHquYQ=="],
+    "@tsconfig/bun": ["@tsconfig/bun@1.0.8", "", {}, "sha512-JlJaRaS4hBTypxtFe8WhnwV8blf0R+3yehLk8XuyxUYNx6VXsKCjACSCvOYEFUiqlhlBWxtYCn/zRlOb8BzBQg=="],
 
     "@tsconfig/strictest": ["@tsconfig/strictest@2.0.5", "", {}, "sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg=="],
 
