@@ -1,5 +1,7 @@
 # @react-analyzer/tsl
 
+[![Version](https://img.shields.io/npm/v/@react-analyzer/tsl?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-analyzer/tsl)
+
 (WIP) Bring the same linting functionality that [`eslint-react.xyz`](https://eslint-react.xyz) has to the TypeScript LSP.
 
 This package provides the rulesets from [`beta.eslint-react.xyz/docs/rules/overview`](https://beta.eslint-react.xyz/docs/rules/overview) as custom rules for the [ArnaudBarre/tsl](https://github.com/ArnaudBarre/tsl) linting tool.
