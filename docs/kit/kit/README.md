@@ -8,6 +8,6 @@
 
 ## Namespaces
 
-- [Check](namespaces/Check/README.md)
+- [CommandLine](namespaces/CommandLine/README.md)
+- [RegExp](namespaces/RegExp/README.md)
 - [Report](namespaces/Report/README.md)
-- [Syntax](namespaces/Syntax/README.md)

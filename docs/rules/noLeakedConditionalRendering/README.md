@@ -6,6 +6,10 @@
 
 # rules/noLeakedConditionalRendering
 
+## Namespaces
+
+- [noLeakedConditionalRendering](namespaces/noLeakedConditionalRendering/README.md)
+
 ## Variables
 
 - [noLeakedConditionalRendering](variables/noLeakedConditionalRendering.md)

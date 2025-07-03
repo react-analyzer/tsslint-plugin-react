@@ -3,7 +3,7 @@ import { match, P } from "ts-pattern";
 import type { Context } from "tsl";
 
 import { identity } from "../lib/eff.ts";
-import { getCommandLineOptions } from "../helper.ts";
+import { CommandLine as CLI } from "../kit/kit.ts";
 
 export interface AnalyzerOptions {
   version: string;
@@ -15,7 +15,7 @@ export const DEFAULT_ANALYZER_OPTIONS = {
 
 // TODO: Port the rest of the options from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/shared/src/settings.ts
 export function getAnalyzerOptions(context: Omit<Context, "data">): AnalyzerOptions {
-  const { project = "tsconfig.json" } = getCommandLineOptions();
+  const { project = "tsconfig.json" } = CLI.getCommandLineOptions();
   // TODO: Improve the type handling here
   const options = getTsconfig(project)?.config["react" as never] as unknown;
   return {

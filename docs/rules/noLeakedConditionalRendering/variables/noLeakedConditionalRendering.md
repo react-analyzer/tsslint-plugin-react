@@ -6,13 +6,13 @@
 
 # Variable: noLeakedConditionalRendering()
 
-> `const` **noLeakedConditionalRendering**: (`options?`) => `Rule`\<`unknown`\>
+> **noLeakedConditionalRendering**: (`options?`) => `Rule`\<`unknown`\>
 
 ## Parameters
 
 ### options?
 
-`"off"`
+[`Options`](../namespaces/noLeakedConditionalRendering/type-aliases/Options.md) | `"off"`
 
 ## Returns
 

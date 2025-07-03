@@ -6,15 +6,7 @@
 
 # Report
 
-## Interfaces
-
-- [Report](interfaces/Report.md)
-
 ## Variables
 
-- [send](variables/send.md)
-- [sendOrElse](variables/sendOrElse.md)
-
-## Functions
-
-- [make](functions/make.md)
+- [report](variables/report.md)
+- [reportOrElse](variables/reportOrElse.md)

@@ -7,7 +7,8 @@
 ## Modules
 
 - [analyzer/analyzer](analyzer/analyzer/README.md)
-- [helper](helper/README.md)
+- [ast/ast](ast/ast/README.md)
+- [checker/checker](checker/checker/README.md)
 - [index](index/README.md)
 - [kit/kit](kit/kit/README.md)
 - [lib/eff](lib/eff/README.md)

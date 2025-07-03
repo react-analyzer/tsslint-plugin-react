@@ -1,3 +1,3 @@
-export * as Check from "./check.ts";
-export * as Report from "./report.ts";
-export * as Syntax from "./syntax.ts";
+export * as Report from "./Report.ts";
+export * as RegExp from "./RegExp.ts";
+export * as CommandLine from "./CommandLine.ts";

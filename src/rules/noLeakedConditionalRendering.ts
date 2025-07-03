@@ -3,7 +3,9 @@ import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import { SyntaxKind } from "typescript";
 
 import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
-import { Check as CHK, Report as RPT, Syntax } from "../kit/kit.ts";
+import { isLogicalNegationExpression } from "../ast/ast.ts";
+import * as CHK from "../checker/checker.ts";
+import { Report as RPT } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
 /** @internal */
@@ -12,18 +14,32 @@ export const messages = {
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
 } as const;
 
-export const noLeakedConditionalRendering = defineRule(() => {
+export declare namespace noLeakedConditionalRendering {
+  /**
+   * Options for the `@react-analyzer/noLeakedConditionalRendering` rule.
+   */
+  type Options = {
+    /**
+     * Whether to allow the `any` type in the left node of a logical expression.
+     * @default true
+     */
+    allowAny: boolean;
+  };
+}
+
+export const noLeakedConditionalRendering = defineRule((_options?: noLeakedConditionalRendering.Options) => {
+  const options = { allowAny: true, ..._options };
   return {
     name: "@react-analyzer/noLeakedConditionalRendering",
-    createData(context) {
-      const { version } = getAnalyzerOptions(context);
+    createData(ctx) {
+      const { version } = getAnalyzerOptions(ctx);
       const state = {
         isWithinJsxExpression: false,
       };
 
       // Allowed left node type variants
       const allowedVariants = [
-        "any",
+        ...(options.allowAny ? ["any"] as const : []),
         "boolean",
         "nullish",
         "object",
@@ -38,9 +54,10 @@ export const noLeakedConditionalRendering = defineRule(() => {
       ] as const satisfies CHK.Variant[];
 
       function getReportDescriptor(node: AST.BinaryExpression): ReportDescriptor | unit {
-        if (Syntax.isLogicalNegationExpression(node.left)) return unit;
-        const leftType = context.utils.getConstrainedTypeAtLocation(node.left);
-        const leftTypeVariants = CHK.getVariantsOfTypes(context.utils.unionConstituents(leftType));
+        // If the left node is a logical negation expression, we skip the type check for better performance
+        if (isLogicalNegationExpression(node.left)) return unit;
+        const leftType = ctx.utils.getConstrainedTypeAtLocation(node.left);
+        const leftTypeVariants = CHK.getVariantsOfTypes(ctx.utils.unionConstituents(leftType));
         const isLeftTypeValid = Array
           .from(leftTypeVariants.values())
           .every((type) => allowedVariants.some((allowed) => allowed === type));
@@ -52,6 +69,7 @@ export const noLeakedConditionalRendering = defineRule(() => {
         }
         return unit;
       }
+
       return { state, version, allowedVariants, getReportDescriptor } as const;
     },
     visitor: {
@@ -62,11 +80,10 @@ export const noLeakedConditionalRendering = defineRule(() => {
         ctx.data.state.isWithinJsxExpression = false;
       },
       BinaryExpression(ctx, node) {
-        if (!ctx.data.state.isWithinJsxExpression) return;
+        const { state, getReportDescriptor } = ctx.data;
+        if (!state.isWithinJsxExpression) return;
         if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return;
-        RPT
-          .make(ctx)
-          .send(ctx.data.getReportDescriptor(node));
+        RPT.report(ctx, getReportDescriptor(node));
       },
     },
   };

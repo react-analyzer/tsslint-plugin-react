@@ -4,9 +4,10 @@
   "disableSources": true,
   "entryPoints": [
     "src/index.ts",
-    "src/helper.ts",
     "src/lib/eff.ts",
     "src/kit/kit.ts",
+    "src/ast/ast.ts",
+    "src/checker/checker.ts",
     "src/analyzer/analyzer.ts",
     "src/rules/noLeakedConditionalRendering.ts"
   ],
