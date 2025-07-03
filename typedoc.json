@@ -8,7 +8,6 @@
     "src/utilities/kit/kit.ts",
     "src/core/checker/checker.ts",
     "src/core/analyzer/analyzer.ts",
-    "src/rules/noLeakedConditionalRendering.ts",
     "src/index.ts"
   ],
   "excludeInternal": true,

@@ -14,21 +14,7 @@ export const messages = {
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
 } as const;
 
-export declare namespace noLeakedConditionalRendering {
-  /**
-   * Options for the `@react-analyzer/noLeakedConditionalRendering` rule.
-   */
-  type Options = {
-    /**
-     * Whether to allow the `any` type in the left node of a logical expression.
-     * @default true
-     */
-    allowAny: boolean;
-  };
-}
-
-export const noLeakedConditionalRendering = defineRule((_options?: noLeakedConditionalRendering.Options) => {
-  const options = { allowAny: true, ..._options };
+export const noLeakedConditionalRendering = defineRule(() => {
   return {
     name: "@react-analyzer/noLeakedConditionalRendering",
     createData(ctx) {
@@ -39,7 +25,7 @@ export const noLeakedConditionalRendering = defineRule((_options?: noLeakedCondi
 
       // Allowed left node type variants
       const allowedVariants = [
-        ...(options.allowAny ? ["any"] as const : []),
+        "any",
         "boolean",
         "nullish",
         "object",
