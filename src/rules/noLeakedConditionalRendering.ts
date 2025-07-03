@@ -6,10 +6,6 @@ import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
 import { Check as CHK, Report as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
-/** @internal */
-export const RULE_NAME = "noLeakedConditionalRendering";
-
-/** @internal */
 export const messages = {
   noLeakedConditionalRendering: (p: { value: string }) =>
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
@@ -17,9 +13,12 @@ export const messages = {
 
 export const noLeakedConditionalRendering = defineRule(() => {
   return {
-    name: `@react-analyzer/${RULE_NAME}`,
+    name: "@react-analyzer/noLeakedConditionalRendering",
     createData(context) {
       const { version } = getAnalyzerOptions(context);
+      const state = {
+        isWithinJsxExpression: false,
+      };
 
       // Allowed left node type variants
       const allowedVariants = [
@@ -52,26 +51,21 @@ export const noLeakedConditionalRendering = defineRule(() => {
         }
         return unit;
       }
-      return {
-        version,
-        allowedVariants,
-        isWithinJsxExpression: false,
-        getReportDescriptor,
-      };
+      return { state, version, allowedVariants, getReportDescriptor } as const;
     },
     visitor: {
-      JsxExpression(context) {
-        context.data.isWithinJsxExpression = true;
+      JsxExpression(ctx) {
+        ctx.data.state.isWithinJsxExpression = true;
       },
-      JsxExpression_exit(context) {
-        context.data.isWithinJsxExpression = false;
+      JsxExpression_exit(ctx) {
+        ctx.data.state.isWithinJsxExpression = false;
       },
-      BinaryExpression(context, node) {
-        if (!context.data.isWithinJsxExpression) return;
+      BinaryExpression(ctx, node) {
+        if (!ctx.data.state.isWithinJsxExpression) return;
         if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return;
         RPT
-          .make(context)
-          .send(context.data.getReportDescriptor(node));
+          .make(ctx)
+          .send(ctx.data.getReportDescriptor(node));
       },
     },
   };
