@@ -15,7 +15,6 @@ export const messages = {
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
 } as const;
 
-// TODO: Port the rule from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.ts
 export const noLeakedConditionalRendering = defineRule(() => {
   return {
     name: `@react-analyzer/${RULE_NAME}`,
@@ -38,40 +37,39 @@ export const noLeakedConditionalRendering = defineRule(() => {
           : ["string", "falsy string"] as const,
       ] as const satisfies CHK.Variant[];
 
-      function getReportDescriptor(
-        node:
-          | unit
-          | AST.Expression,
-      ): ReportDescriptor | unit {
-        if (node == null) return unit;
-        switch (node.kind) {
-          case SyntaxKind.JsxExpression:
-          case SyntaxKind.AsExpression:
-          case SyntaxKind.TypeAssertionExpression:
-          case SyntaxKind.NonNullExpression:
-          case SyntaxKind.SatisfiesExpression:
-          case SyntaxKind.ExpressionWithTypeArguments: {
-            return getReportDescriptor(node.expression);
-          }
-          case SyntaxKind.BinaryExpression: {
-            if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return unit;
-            if (Syntax.isLogicalNegationExpression(node.left)) return getReportDescriptor(node.right);
-            // TODO: Implement the rest of the logic
-            return unit;
-          }
-            // TODO: Implement the rest of the logic
+      function getReportDescriptor(node: AST.BinaryExpression): ReportDescriptor | unit {
+        if (Syntax.isLogicalNegationExpression(node.left)) return unit;
+        const leftType = context.utils.getConstrainedTypeAtLocation(node.left);
+        const leftTypeParts = context.utils.unionConstituents(leftType);
+        const leftTypeVariants = CHK.getVariantsOfUnionConstituents(leftTypeParts);
+        const isLeftTypeValid = Array
+          .from(leftTypeVariants.values())
+          .every((type) => allowedVariants.some((allowed) => allowed === type));
+        if (!isLeftTypeValid) {
+          return {
+            node: node.left,
+            message: messages.noLeakedConditionalRendering({ value: node.left.getText() }),
+          };
         }
         return unit;
       }
-
       return {
         version,
         allowedVariants,
+        isWithinJsxExpression: false,
         getReportDescriptor,
       };
     },
     visitor: {
-      JsxExpression(context, node) {
+      JsxExpression(context) {
+        context.data.isWithinJsxExpression = true;
+      },
+      JsxExpression_exit(context) {
+        context.data.isWithinJsxExpression = false;
+      },
+      BinaryExpression(context, node) {
+        if (!context.data.isWithinJsxExpression) return;
+        if (node.operatorToken.kind !== SyntaxKind.AmpersandAmpersandToken) return;
         RPT
           .make(context)
           .send(context.data.getReportDescriptor(node));

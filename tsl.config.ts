@@ -4,22 +4,22 @@ import { isMatching, match, P } from "ts-pattern";
 import { core, defineConfig, defineRule } from "tsl";
 import { SyntaxKind } from "typescript";
 
-const isNullOrUndefine = P.union(
+const isNullOrUndefine = isMatching(P.union(
   SyntaxKind.NullKeyword,
   SyntaxKind.UndefinedKeyword,
-);
+));
 
-const isEqEqEqOrExEqEq = P.union(
+const isEqEqEqOrExEqEq = isMatching(P.union(
   SyntaxKind.EqualsEqualsEqualsToken,
   SyntaxKind.ExclamationEqualsEqualsToken,
-);
+));
 
 const preferEqEqNullishComparison = defineRule(() => ({
   name: "local/preferEqEqNullishComparison",
   visitor: {
     BinaryExpression(context, node) {
-      if (!isMatching(isEqEqEqOrExEqEq, node.operatorToken.kind)) return;
-      if (!isMatching(isNullOrUndefine, node.left.kind) && !isMatching(isNullOrUndefine, node.right.kind)) return;
+      if (!isEqEqEqOrExEqEq(node.operatorToken.kind)) return;
+      if (!isNullOrUndefine(node.left.kind) && !isNullOrUndefine(node.right.kind)) return;
       const newOperatorText = match(node.operatorToken.kind)
         .with(SyntaxKind.EqualsEqualsEqualsToken, () => "==")
         .with(SyntaxKind.ExclamationEqualsEqualsToken, () => "!=")
