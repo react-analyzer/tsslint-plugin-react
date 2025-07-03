@@ -2,11 +2,11 @@ import { compare } from "compare-versions";
 import { defineRule, type AST, type ReportDescriptor } from "tsl";
 import { SyntaxKind } from "typescript";
 
-import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
-import { isLogicalNegationExpression } from "../ast/ast.ts";
-import * as CHK from "../checker/checker.ts";
-import { Report as RPT } from "../kit/kit.ts";
-import { unit } from "../lib/eff.ts";
+import { getAnalyzerOptions } from "#/core/analyzer/analyzer.ts";
+import * as CHK from "#/core/checker/checker.ts";
+import { isLogicalNegationExpression } from "#/utilities/ast/ast.ts";
+import { unit } from "#/utilities/eff/eff.ts";
+import { Report as RPT } from "#/utilities/kit/kit.ts";
 
 /** @internal */
 export const messages = {

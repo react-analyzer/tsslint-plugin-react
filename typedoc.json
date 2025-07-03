@@ -3,13 +3,13 @@
   "cleanOutputDir": true,
   "disableSources": true,
   "entryPoints": [
-    "src/index.ts",
-    "src/lib/eff.ts",
-    "src/kit/kit.ts",
-    "src/ast/ast.ts",
-    "src/checker/checker.ts",
-    "src/analyzer/analyzer.ts",
-    "src/rules/noLeakedConditionalRendering.ts"
+    "src/utilities/eff/eff.ts",
+    "src/utilities/ast/ast.ts",
+    "src/utilities/kit/kit.ts",
+    "src/core/checker/checker.ts",
+    "src/core/analyzer/analyzer.ts",
+    "src/rules/noLeakedConditionalRendering.ts",
+    "src/index.ts"
   ],
   "excludeInternal": true,
   "hideGenerator": true,

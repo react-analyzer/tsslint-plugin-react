@@ -7,7 +7,11 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleDetection": "force",
-    "types": ["tsl/patches"],
+    "types": [
+      "tsl/patches",
+      "@types/bun",
+      "@types/node"
+    ],
     "skipLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -20,6 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": true,
     "noPropertyAccessFromIndexSignature": true,
+    "paths": {
+      "#": ["./src"],
+      "#/*": ["./src/*"]
+    },
     "plugins": [{ "name": "tsl/plugin" }]
   },
   "exclude": [
@@ -28,6 +36,7 @@
     "test/fixtures"
   ],
   "include": [
-    "src"
+    "src",
+    "scripts"
   ]
 }

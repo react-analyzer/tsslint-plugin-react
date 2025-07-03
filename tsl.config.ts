@@ -1,5 +1,4 @@
 // tsl.config.ts
-import { hole } from "effect/Function";
 import { isMatching, match, P } from "ts-pattern";
 import { core, defineConfig, defineRule } from "tsl";
 import { SyntaxKind } from "typescript";
@@ -20,10 +19,7 @@ const preferEqEqNullishComparison = defineRule(() => ({
     BinaryExpression(context, node) {
       if (!isEqEqEqOrExEqEq(node.operatorToken.kind)) return;
       if (!isNullOrUndefine(node.left.kind) && !isNullOrUndefine(node.right.kind)) return;
-      const newOperatorText = match(node.operatorToken.kind)
-        .with(SyntaxKind.EqualsEqualsEqualsToken, () => "==")
-        .with(SyntaxKind.ExclamationEqualsEqualsToken, () => "!=")
-        .otherwise<never>(hole);
+      const newOperatorText = node.operatorToken.kind === SyntaxKind.EqualsEqualsEqualsToken ? "==" : "!=";
       context.report({
         message: "Use '==' or '!=' for nullish comparison.",
         node,

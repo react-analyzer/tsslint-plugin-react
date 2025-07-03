@@ -1,10 +1,11 @@
 import tsx from "dedent";
 import { ruleTester } from "tsl/ruleTester";
-import { expect, test } from "vitest";
+import { test, expect } from "bun:test";
+
 import { messages, noLeakedConditionalRendering } from "./noLeakedConditionalRendering.ts";
 
-// TODO: Port more tests from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.spec.ts
 test("noLeakedConditionalRendering", () => {
+  // TODO: Port more tests from https://github.com/Rel1cx/eslint-react/blob/2.0.0-beta/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering.spec.ts
   const ret = ruleTester({
     tsx: true,
     ruleFn: noLeakedConditionalRendering,
@@ -117,5 +118,5 @@ test("noLeakedConditionalRendering", () => {
       },
     ],
   });
-  expect(ret).toEqual(false);
+  expect(ret).toBe(false);
 });
