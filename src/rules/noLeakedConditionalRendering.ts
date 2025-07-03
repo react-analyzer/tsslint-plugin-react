@@ -6,6 +6,7 @@ import { getAnalyzerOptions } from "../analyzer/analyzer.ts";
 import { Check as CHK, Report as RPT, Syntax } from "../kit/kit.ts";
 import { unit } from "../lib/eff.ts";
 
+/** @internal */
 export const messages = {
   noLeakedConditionalRendering: (p: { value: string }) =>
     `Potential leaked value ${p.value} that might cause unintentionally rendered values or rendering crashes.`,
