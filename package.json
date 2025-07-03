@@ -1,6 +1,6 @@
 {
   "name": "@react-analyzer/tsl",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Bring the same linting functionality that https://eslint-react.xyz has to the TypeScript LSP.",
   "homepage": "https://github.com/react-analyzer/tsl",
   "bugs": {
@@ -47,13 +47,13 @@
     "@types/node": "24.0.7",
     "dedent": "^1.6.0",
     "dprint": "^0.50.1",
-    "effect": "^3.16.10",
+    "effect": "^3.16.11",
     "publint": "^0.3.12",
     "skott": "^0.35.4",
     "tsup": "^8.5.0",
+    "typedoc": "^0.28.7",
     "typedoc-plugin-markdown": "^4.7.0",
     "typedoc-plugin-mdn-links": "^5.0.2",
-    "typedoc": "^0.28.7",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },
