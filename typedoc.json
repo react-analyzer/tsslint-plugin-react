@@ -3,11 +3,11 @@
   "cleanOutputDir": true,
   "disableSources": true,
   "entryPoints": [
-    "src/utilities/eff/eff.ts",
-    "src/utilities/ast/ast.ts",
-    "src/utilities/kit/kit.ts",
-    "src/core/checker/checker.ts",
-    "src/core/analyzer/analyzer.ts",
+    "src/eff/eff.ts",
+    "src/ast/ast.ts",
+    "src/kit/kit.ts",
+    "src/checker/checker.ts",
+    "src/analyzer/analyzer.ts",
     "src/index.ts"
   ],
   "excludeInternal": true,

@@ -2,8 +2,8 @@ import { getTsconfig } from "get-tsconfig";
 import { match, P } from "ts-pattern";
 import type { Context } from "tsl";
 
-import { identity } from "../../utilities/eff/eff.ts";
-import { CommandLine as CLI } from "../../utilities/kit/kit.ts";
+import { identity } from "../eff/eff.ts";
+import { CommandLine as CLI } from "../kit/kit.ts";
 
 export interface AnalyzerOptions {
   version: string;
